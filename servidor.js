@@ -1,6 +1,7 @@
 const express = require("express");
 const { Pool, types } = require("pg");
 types.setTypeParser(1082, (valor) => valor);
+const { validarReserva } = require("./validaciones");
 
 const app = express();
 
@@ -26,8 +27,9 @@ app.post("/reservas", async (req, res) => {
     try {
         const { nombre, telefono, fecha, hora } = req.body;
 
-        if (!nombre || !telefono || !fecha || !hora) {
-            return res.status(400).json({ error: "Faltan datos obligatorios" });
+        const errorValidacion = validarReserva(req.body);
+        if (errorValidacion) {
+            return res.status(400).json({ error: errorValidacion });
         }
 
         const resultado = await pool.query(
