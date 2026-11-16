@@ -11,6 +11,10 @@ const validarReserva = ({ nombre, telefono, fecha, hora }) => {
         return "Nombre muy largo";
     }
 
+    if (!/^\+569\d{8}$/.test(telefono)) {
+        return "El teléfono debe tener el formato +56912345678";
+    }
+
     return null;
 };
 
