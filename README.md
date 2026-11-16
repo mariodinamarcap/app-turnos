@@ -37,15 +37,26 @@ Por ahora es solo el backend: no tiene pantallas. Lo estoy construyendo para apr
    psql app_turnos -f schema.sql
    ```
 
-4. Encender el servidor:
+4. Crear el archivo de configuración a partir del ejemplo, y ajustar `DATABASE_URL` con tu usuario de PostgreSQL:
 
    ```bash
-   node servidor.js
+   cp .env.example .env
    ```
 
-   El servidor queda escuchando en `http://localhost:3001`.
+   | Variable | Qué es | Ejemplo |
+   |---|---|---|
+   | `PORT` | Puerto donde escucha el servidor. Si no se indica, usa `3001` | `3001` |
+   | `DATABASE_URL` | Dirección de conexión a PostgreSQL. Es obligatoria | `postgresql://usuario:contraseña@localhost:5432/app_turnos` |
 
-> La conexión usa la base de datos `app_turnos` con el usuario de PostgreSQL de tu sistema, sin contraseña. Por ahora no se puede configurar.
+   El archivo `.env` no se sube a Git, porque puede tener contraseñas.
+
+5. Encender el servidor:
+
+   ```bash
+   npm run dev
+   ```
+
+   El servidor queda escuchando en `http://localhost:3001`, y se reinicia solo al guardar cambios. Para producción, usar `npm start`.
 
 ## Uso
 
@@ -102,5 +113,4 @@ En construcción.
 **Pendiente:**
 
 - Proteger `GET /reservas`: hoy cualquiera puede ver los nombres y teléfonos.
-- Configurar la conexión a la base de datos con variables de entorno.
 - Crear el frontend con React.

@@ -3,11 +3,18 @@ const { Pool, types } = require("pg");
 types.setTypeParser(1082, (valor) => valor);
 const { validarReserva } = require("./validaciones");
 
+if (!process.env.DATABASE_URL) {
+    console.error("Falta la variable DATABASE_URL. Copia .env.example como .env y complétalo.");
+    process.exit(1);
+}
+
+const PORT = process.env.PORT || 3001;
+
 const app = express();
 
 app.use(express.json());
 
-const pool = new Pool({ database: "app_turnos" });
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 app.get("/", (req, res) => {
     console.log("Llegó una petición a /");
@@ -47,4 +54,6 @@ app.post("/reservas", async (req, res) => {
     }
 });
 
-app.listen(3001);
+app.listen(PORT, () => {
+    console.log(`Servidor escuchando en http://localhost:${PORT}`);
+});
