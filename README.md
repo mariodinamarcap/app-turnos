@@ -74,9 +74,19 @@ curl -i -X POST http://localhost:3001/reservas \
 | Status | Cuándo |
 |---|---|
 | `201 Created` | La reserva se guardó. Responde con la reserva creada, incluido su `id` |
-| `400 Bad Request` | Falta el nombre, el teléfono, la fecha o la hora |
+| `400 Bad Request` | Faltan datos o no cumplen las reglas de abajo. Responde con un mensaje que explica el problema |
 | `409 Conflict` | Ya existe una reserva para esa fecha y hora |
 | `500 Internal Server Error` | Error inesperado del servidor |
+
+### Reglas de una reserva
+
+- El nombre debe tener entre 2 y 50 caracteres.
+- El teléfono debe ser un celular chileno: `+569` seguido de 8 dígitos.
+- La fecha debe tener el formato `AAAA-MM-DD` y existir.
+- Solo se atiende de lunes a viernes.
+- Solo hay turnos a las `10:00`, `10:30`, `11:00` y `11:30`.
+- No se puede reservar en el pasado, según la hora de Chile.
+- No puede haber dos reservas para la misma fecha y hora.
 
 ## Estado del proyecto
 
@@ -86,12 +96,11 @@ En construcción.
 
 - Guardar y listar reservas en PostgreSQL.
 - Rechazar horas ocupadas con una regla `UNIQUE` en la base de datos.
-- Rechazar reservas con datos incompletos.
+- Rechazar reservas con datos incompletos o que no cumplen las reglas.
 - Consultas con marcadores (`$1`, `$2`...) para evitar la inyección SQL.
 
 **Pendiente:**
 
-- Validar el formato de los datos, las fechas pasadas, el horario de atención y los turnos de 30 minutos.
 - Proteger `GET /reservas`: hoy cualquiera puede ver los nombres y teléfonos.
 - Configurar la conexión a la base de datos con variables de entorno.
 - Crear el frontend con React.
