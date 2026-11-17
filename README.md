@@ -47,6 +47,13 @@ Por ahora es solo el backend: no tiene pantallas. Lo estoy construyendo para apr
    |---|---|---|
    | `PORT` | Puerto donde escucha el servidor. Si no se indica, usa `3001` | `3001` |
    | `DATABASE_URL` | Dirección de conexión a PostgreSQL. Es obligatoria | `postgresql://usuario:contraseña@localhost:5432/app_turnos` |
+   | `ADMIN_TOKEN` | Clave secreta del barbero para ver las reservas. Es obligatoria | Una clave larga y aleatoria |
+
+   Para generar una clave segura:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+   ```
 
    El archivo `.env` no se sube a Git, porque puede tener contraseñas.
 
@@ -62,11 +69,14 @@ Por ahora es solo el backend: no tiene pantallas. Lo estoy construyendo para apr
 
 ### Listar las reservas
 
+Solo el barbero puede ver las reservas. Hay que enviar la clave `ADMIN_TOKEN` en el header `Authorization`:
+
 ```bash
-curl http://localhost:3001/reservas
+curl http://localhost:3001/reservas \
+  -H "Authorization: Bearer <ADMIN_TOKEN>"
 ```
 
-Responde `200` con un arreglo de reservas:
+Si la clave falta o es incorrecta, responde `401 Unauthorized`. Si es correcta, responde `200` con un arreglo de reservas:
 
 ```json
 [
@@ -109,8 +119,8 @@ En construcción.
 - Rechazar horas ocupadas con una regla `UNIQUE` en la base de datos.
 - Rechazar reservas con datos incompletos o que no cumplen las reglas.
 - Consultas con marcadores (`$1`, `$2`...) para evitar la inyección SQL.
+- Solo el barbero puede ver las reservas, con una clave secreta.
 
 **Pendiente:**
 
-- Proteger `GET /reservas`: hoy cualquiera puede ver los nombres y teléfonos.
 - Crear el frontend con React.

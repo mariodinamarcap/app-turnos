@@ -2,10 +2,13 @@ const express = require("express");
 const { Pool, types } = require("pg");
 types.setTypeParser(1082, (valor) => valor);
 const { validarReserva } = require("./validaciones");
+const { soloBarbero } = require("./autenticacion");
 
-if (!process.env.DATABASE_URL) {
-    console.error("Falta la variable DATABASE_URL. Copia .env.example como .env y complétalo.");
-    process.exit(1);
+for (const variable of ["DATABASE_URL", "ADMIN_TOKEN"]) {
+    if (!process.env[variable]) {
+        console.error(`Falta la variable ${variable}. Copia .env.example como .env y complétalo.`);
+        process.exit(1);
+    }
 }
 
 const PORT = process.env.PORT || 3001;
@@ -25,7 +28,7 @@ app.get("/hola", (req, res) => {
     res.send("Hola desde el servidor");
 });
 
-app.get("/reservas", async (req, res) => {
+app.get("/reservas", soloBarbero, async (req, res) => {
     const resultado = await pool.query("SELECT * FROM reservas;");
     res.json(resultado.rows);
 });
