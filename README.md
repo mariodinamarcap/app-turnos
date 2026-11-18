@@ -109,6 +109,14 @@ curl -i -X POST http://localhost:3001/reservas \
 - No se puede reservar en el pasado, según la hora de Chile.
 - No puede haber dos reservas para la misma fecha y hora.
 
+## Tests
+
+```bash
+npm test
+```
+
+Ejecuta los tests de las reglas de una reserva con `node --test`, el test runner que trae Node. No necesita la base de datos ni el servidor encendido.
+
 ## Estado del proyecto
 
 En construcción.
@@ -120,6 +128,7 @@ En construcción.
 - Rechazar reservas con datos incompletos o que no cumplen las reglas.
 - Consultas con marcadores (`$1`, `$2`...) para evitar la inyección SQL.
 - Solo el barbero puede ver las reservas, con una clave secreta.
+- Tests automáticos de las reglas de una reserva.
 
 **Pendiente:**
 
