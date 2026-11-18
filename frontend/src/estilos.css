@@ -1,0 +1,270 @@
+:root {
+    --negro: #0b0b0c;
+    --superficie: #141416;
+    --superficie-alta: #1c1c1f;
+    --borde: #2c2b2a;
+    --dorado: #c9a24b;
+    --dorado-claro: #e3c47e;
+    --blanco: #f4f1ea;
+    --gris: #a19c93;
+    --error: #ef6b6b;
+    --exito: #7fcf9a;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: radial-gradient(circle at top, #1a1712 0%, var(--negro) 55%);
+    color: var(--blanco);
+    font-family: "Inter", system-ui, sans-serif;
+    line-height: 1.5;
+}
+
+.contenedor {
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 48px 16px 64px;
+}
+
+/* Encabezado */
+
+.encabezado {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.logo {
+    margin: 0;
+    font-size: 28px;
+    color: var(--dorado);
+}
+
+.encabezado h1 {
+    margin: 4px 0;
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: clamp(32px, 8vw, 44px);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--dorado);
+}
+
+.subtitulo {
+    margin: 0;
+    color: var(--gris);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+/* Tarjeta y campos */
+
+.tarjeta {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px 24px;
+    background: var(--superficie);
+    border: 1px solid var(--borde);
+    border-top: 2px solid var(--dorado);
+    border-radius: 12px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+.campo span,
+.campo legend {
+    padding: 0;
+    margin-bottom: 8px;
+    color: var(--gris);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.campo span {
+    margin-bottom: 0;
+}
+
+input {
+    padding: 12px 14px;
+    background: var(--superficie-alta);
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    color: var(--blanco);
+    font: inherit;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--dorado);
+}
+
+/* Botones de día y hora */
+
+.opciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.opcion {
+    padding: 10px 14px;
+    background: transparent;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    color: var(--blanco);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.opcion:hover:not(:disabled) {
+    border-color: var(--dorado);
+}
+
+.opcion.elegida {
+    background: var(--dorado);
+    border-color: var(--dorado);
+    color: var(--negro);
+    font-weight: 600;
+}
+
+.opcion:disabled {
+    color: var(--borde);
+    text-decoration: line-through;
+    cursor: not-allowed;
+}
+
+/* Botones principales */
+
+.boton-principal {
+    padding: 14px;
+    background: var(--dorado);
+    border: none;
+    border-radius: 8px;
+    color: var(--negro);
+    font: inherit;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.boton-principal:hover:not(:disabled) {
+    background: var(--dorado-claro);
+}
+
+.boton-principal:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.boton-secundario {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    color: var(--blanco);
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.boton-secundario:hover {
+    border-color: var(--dorado);
+}
+
+/* Avisos */
+
+.aviso {
+    margin: 0;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: 1px solid currentColor;
+}
+
+.aviso.exito {
+    color: var(--exito);
+}
+
+.aviso.error {
+    color: var(--error);
+}
+
+/* Panel del barbero */
+
+.barra {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.barra p {
+    margin: 0;
+    color: var(--gris);
+}
+
+.barra-botones {
+    display: flex;
+    gap: 8px;
+}
+
+.vacio {
+    margin: 0;
+    color: var(--gris);
+    text-align: center;
+}
+
+.dia h2 {
+    margin: 0 0 8px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--borde);
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 18px;
+    color: var(--dorado);
+}
+
+.dia ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.dia li {
+    display: grid;
+    grid-template-columns: 56px 1fr auto;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--borde);
+}
+
+.dia li:last-child {
+    border-bottom: none;
+}
+
+.hora {
+    color: var(--dorado);
+    font-weight: 600;
+}
+
+.dia a {
+    color: var(--gris);
+    text-decoration: none;
+}
+
+.dia a:hover {
+    color: var(--blanco);
+}

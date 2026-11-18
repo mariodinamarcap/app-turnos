@@ -1,14 +1,22 @@
 # App de turnos para barbería
 
-API para reservar horas en una barbería. Permite guardar reservas y listarlas, e impide que dos personas reserven la misma fecha y hora, aunque lo intenten al mismo tiempo.
+App para reservar horas en **Barbería Chile**. Los clientes reservan desde una página web, y el barbero ve sus reservas en un panel protegido con clave. Impide que dos personas reserven la misma fecha y hora, aunque lo intenten al mismo tiempo.
 
-Por ahora es solo el backend: no tiene pantallas. Lo estoy construyendo para aprender desarrollo full stack.
+Lo estoy construyendo para aprender desarrollo full stack.
 
 ## Tecnologías
 
 - **Node.js** y **Express 5**: servidor y rutas HTTP.
 - **PostgreSQL**: base de datos.
 - **pg**: conexión entre Node.js y PostgreSQL.
+- **React** y **Vite**: las pantallas, en la carpeta `frontend`.
+
+## Pantallas
+
+| Dirección | Para quién | Qué hace |
+|---|---|---|
+| `/` | Clientes | Formulario para reservar. Solo muestra días de lunes a viernes y no ofrece horas que ya pasaron |
+| `/barbero` | El barbero | Pide la clave `ADMIN_TOKEN` y muestra las reservas agrupadas por día. Recuerda la clave en el navegador |
 
 ## Requisitos
 
@@ -57,13 +65,35 @@ Por ahora es solo el backend: no tiene pantallas. Lo estoy construyendo para apr
 
    El archivo `.env` no se sube a Git, porque puede tener contraseñas.
 
-5. Encender el servidor:
+5. Construir las pantallas:
+
+   ```bash
+   npm run build
+   ```
+
+   Instala las dependencias de `frontend` y deja las pantallas listas en `frontend/dist`.
+
+6. Encender el servidor:
 
    ```bash
    npm run dev
    ```
 
-   El servidor queda escuchando en `http://localhost:3001`, y se reinicia solo al guardar cambios. Para producción, usar `npm start`.
+   La app queda en `http://localhost:3001`, y el servidor se reinicia solo al guardar cambios. Para producción, usar `npm start`.
+
+### Programar las pantallas
+
+Para ver los cambios del frontend al instante, sin volver a construirlo, se usan dos terminales:
+
+```bash
+npm run dev
+```
+
+```bash
+npm run dev:frontend
+```
+
+Las pantallas quedan en `http://localhost:5173`, y sus peticiones a `/reservas` llegan al backend del puerto 3001.
 
 ## Uso
 
@@ -145,7 +175,8 @@ En construcción.
 - Consultas con marcadores (`$1`, `$2`...) para evitar la inyección SQL.
 - Solo el barbero puede ver las reservas, con una clave secreta.
 - Tests automáticos de las reglas de una reserva y de las rutas.
+- Pantallas en React para el cliente y para el barbero.
 
 **Pendiente:**
 
-- Crear el frontend con React.
+- Publicar la app en internet.
