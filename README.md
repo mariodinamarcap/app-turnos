@@ -111,11 +111,27 @@ curl -i -X POST http://localhost:3001/reservas \
 
 ## Tests
 
+Los tests de las rutas usan una base de datos aparte, porque la vacían antes de cada test. Hay que crearla una vez:
+
+```bash
+createdb app_turnos_test
+psql app_turnos_test -f schema.sql
+```
+
+Y agregar su dirección al `.env`, en la variable `TEST_DATABASE_URL`. Su nombre debe terminar en `_test`; si no, los tests no se ejecutan, para no borrar las reservas reales.
+
+Después, para ejecutar todos los tests:
+
 ```bash
 npm test
 ```
 
-Ejecuta los tests de las reglas de una reserva con `node --test`, el test runner que trae Node. No necesita la base de datos ni el servidor encendido.
+| Archivo | Qué prueba |
+|---|---|
+| `validaciones.test.js` | Las reglas de una reserva, sin servidor ni base de datos |
+| `rutas.test.js` | Las rutas completas: los status `200`, `201`, `400`, `401` y `409` |
+
+Usan `node --test`, el test runner que trae Node, así que no hay que instalar nada.
 
 ## Estado del proyecto
 
@@ -128,7 +144,7 @@ En construcción.
 - Rechazar reservas con datos incompletos o que no cumplen las reglas.
 - Consultas con marcadores (`$1`, `$2`...) para evitar la inyección SQL.
 - Solo el barbero puede ver las reservas, con una clave secreta.
-- Tests automáticos de las reglas de una reserva.
+- Tests automáticos de las reglas de una reserva y de las rutas.
 
 **Pendiente:**
 
