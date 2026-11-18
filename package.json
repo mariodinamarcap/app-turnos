@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env servidor.js",
     "dev": "node --watch --env-file-if-exists=.env servidor.js",
-    "test": "node --test"
+    "test": "node --env-file-if-exists=.env --test"
   },
   "keywords": [],
   "author": "",
