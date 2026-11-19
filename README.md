@@ -2,7 +2,11 @@
 
 App para reservar horas en **Barbería Chile**. Los clientes reservan desde una página web, y el barbero ve sus reservas en un panel protegido con clave. Impide que dos personas reserven la misma fecha y hora, aunque lo intenten al mismo tiempo.
 
-Lo estoy construyendo para aprender desarrollo full stack.
+Lo construí para aprender desarrollo full stack.
+
+**🌐 Probar la app:** [reserva-barberia.onrender.com](https://reserva-barberia.onrender.com)
+
+Está en el plan gratuito de Render, que apaga la app cuando nadie la usa. La primera visita puede demorar cerca de un minuto en cargar.
 
 ## Tecnologías
 
@@ -10,6 +14,7 @@ Lo estoy construyendo para aprender desarrollo full stack.
 - **PostgreSQL**: base de datos.
 - **pg**: conexión entre Node.js y PostgreSQL.
 - **React** y **Vite**: las pantallas, en la carpeta `frontend`.
+- **Render** y **Neon**: la app y la base de datos publicadas en internet.
 
 ## Pantallas
 
@@ -165,7 +170,7 @@ Usan `node --test`, el test runner que trae Node, así que no hay que instalar n
 
 ## Estado del proyecto
 
-En construcción.
+Terminado y publicado.
 
 **Funciona:**
 
@@ -176,7 +181,9 @@ En construcción.
 - Solo el barbero puede ver las reservas, con una clave secreta.
 - Tests automáticos de las reglas de una reserva y de las rutas.
 - Pantallas en React para el cliente y para el barbero.
+- Publicada en Render, con la base de datos en Neon.
 
-**Pendiente:**
+**Mejoras posibles:**
 
-- Publicar la app en internet.
+- Mostrar solo las horas libres de cada día.
+- Que el barbero pueda cancelar una reserva.
