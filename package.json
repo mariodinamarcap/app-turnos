@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node --env-file-if-exists=.env servidor.js",
     "dev": "node --watch --env-file-if-exists=.env servidor.js",
+    "dev:frontend": "npm run dev --prefix frontend",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend",
     "test": "node --env-file-if-exists=.env --test"
   },
   "keywords": [],

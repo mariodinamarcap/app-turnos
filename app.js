@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const { Pool, types } = require("pg");
 types.setTypeParser(1082, (valor) => valor);
@@ -16,15 +17,6 @@ const app = express();
 app.use(express.json());
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
-
-app.get("/", (req, res) => {
-    console.log("Llegó una petición a /");
-    res.send("ruta raiz");
-});
-
-app.get("/hola", (req, res) => {
-    res.send("Hola desde el servidor");
-});
 
 app.get("/reservas", soloBarbero, async (req, res) => {
     const resultado = await pool.query("SELECT * FROM reservas;");
@@ -53,6 +45,13 @@ app.post("/reservas", async (req, res) => {
         console.error(error);
         res.status(500).json({ error: "Error interno" });
     }
+});
+
+// Las pantallas del frontend, ya construidas con `npm run build`.
+const carpetaFrontend = path.join(__dirname, "frontend", "dist");
+app.use(express.static(carpetaFrontend));
+app.get("/barbero", (req, res) => {
+    res.sendFile(path.join(carpetaFrontend, "index.html"));
 });
 
 module.exports = { app, pool };
